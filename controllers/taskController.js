@@ -70,10 +70,32 @@ const createTask = async (req, res) => {
         return res.status(500).json({error: err});
     }
   };
+
+  // updating a task
+  const updateTask = async (req, res, next) => {
+    try {
+      const taskId = req.params.id.trim(); 
+      const { title, description, assignedUser, dueDate, completionStatus } = req.body;
+      const task = await Task.findByIdAndUpdate(taskId, {
+        title,
+        description,
+        assignedUser,
+        dueDate,
+        completionStatus,
+      }, { new: true });
+      if (!task) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      res.json(task);
+    } catch (err) {
+        return res.status(500).json({error: err});
+    }
+  };
   
 
   module.exports = {
     createTask,
     getAllTasks,
-    getTaskById
+    getTaskById,
+    updateTask
   }
