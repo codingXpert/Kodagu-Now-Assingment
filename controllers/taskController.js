@@ -55,9 +55,25 @@ const createTask = async (req, res) => {
         return res.status(500).json({error: err});
     }
   };
+
+  // get task by id
+  const getTaskById = async (req, res) => {
+    try {
+      const taskId = req.params.id.trim();
+      const task = await Task.findById(taskId);
+      if (!task) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      res.json(task);
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({error: err});
+    }
+  };
   
 
   module.exports = {
     createTask,
-    getAllTasks
+    getAllTasks,
+    getTaskById
   }
