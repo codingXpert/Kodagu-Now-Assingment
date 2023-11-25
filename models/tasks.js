@@ -11,15 +11,15 @@ const taskSchema = new mongoose.Schema(
       required: true,
       maxlength: 1000,
     },
-    assigned_user: {
-      type: Number,
+    assignedUser: {
+      type: String,
       required: true
     },
-    due_date: {
+    dueDate: {
       type: Date,
       required: true
     },
-    completion_status: {
+    completionStatus: {
       type: String,
       default: "pending",
       required: true

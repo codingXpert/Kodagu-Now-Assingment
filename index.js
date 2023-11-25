@@ -3,6 +3,9 @@ const app = express();
 const db = require('./config/mongoose');
 const PORT = process.env.PORT || 8000;
 
+//middleware
+app.use(express.json());
+app.use("/", require("./routes"));
 
 app.listen(PORT, (err) => {
     if(err){
