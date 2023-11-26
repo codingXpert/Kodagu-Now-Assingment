@@ -30,8 +30,6 @@ To run tests using Mocha/Chai:
 npm test
 ```
 
-## Usage
-
 ### API Endpoints
 
 #### Create a new task
@@ -42,6 +40,7 @@ npm test
   - `description` (string): Description of the task
   - `assignedUser` (string): Assigned user for the task
   - `dueDate` (date): Due date for the task
+  - `completionStatus` (string): Completion for the task
 - **Expected Response:** Returns the created task object
 
 #### Retrieve all tasks with pagination
