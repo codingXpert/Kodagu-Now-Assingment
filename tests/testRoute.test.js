@@ -1,13 +1,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../app');
-const Task = require('../models/task');
+const app = require('../index');
+const Task = require('../models/tasks');
 
-chai.use(chaiHttp);
-const expect = chai.expect;
+describe('Task API', function() {
+  this.timeout(10000); 
 
-describe('Task API', () => {
-  before(async () => {
+  beforeEach(async function() {
     await Task.create([
       {
         title: 'Task 1',
@@ -26,18 +25,18 @@ describe('Task API', () => {
     ]);
   });
 
-  after(async () => {
+  afterEach(async function() {
     await Task.deleteMany();
   });
 
-  it('should retrieve all tasks', (done) => {
-    chai.request(app)
-      .get('/tasks')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('array');
-        expect(res.body).to.have.lengthOf(2);
-        done();
-      });
+  it('should retrieve all tasks', async function() {
+    try {
+      const res = await chai.request(app).get('/tasks');
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.have.lengthOf(2);
+    } catch (err) {
+      throw err; // Throw the error for Mocha to handle it
+    }
   });
 });
